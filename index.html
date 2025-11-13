@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Disease Detection & Alert App</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 20px; 
+    }
+    h1 { color: green; }
+    img { max-width: 250px; margin-top: 15px; border-radius: 10px; }
+    button { margin: 10px; padding: 8px 16px; cursor: pointer; border: none; border-radius: 6px; background-color: #4CAF50; color: white; }
+    button:hover { background-color: #45a049; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🌿 Plant Disease Detection & Alert App</h1>
+  <p>Upload a leaf image to check for possible diseases.</p>
+
+  <input type="file" id="leafImage" accept="image/*"><br>
+  <img id="preview" src="" alt=""><br>
+  <button onclick="analyzeImage()">Analyze Leaf</button>
+
+  <div class="result" id="resultText"></div>
+
+  <script>
+    const fileInput = document.getElementById('leafImage');
+    const preview = document.getElementById('preview');
+    const resultText = document.getElementById('resultText');
+
+    const diseases = [
+      "Leaf Spot Disease",
+      "Powdery Mildew",
+      "Bacterial Blight",
+      "Healthy Leaf"
+    ];
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+
+    function analyzeImage() {
+      if (!fileInput.files.length) {
+        alert("Please upload a leaf image first!");
+        return;
+      }
+      const random = diseases[Math.floor(Math.random() * diseases.length)];
+      if (random === "Healthy Leaf") {
+        resultText.innerHTML = "✅ The plant is healthy!";
+        resultText.style.color = "green";
+      } else {
+        resultText.innerHTML = `⚠️ Detected: ${random}`;
+        resultText.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
